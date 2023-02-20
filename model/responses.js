@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
 
-const questionairSchema = new Schema({
-    questionaireID : String,
-    responses : [{ response: String }]
+const responseSchema = require('../model/response')
+
+const QuestionnaireResponseSchema = new mongoose.Schema({
+  questionnaireID: {type: Number, required: true},
+  responses: {type: [responseSchema.schema], required: true}
 })
 
-const responsesSchema = new Schema({
-    userId : String,
-    questionairResponses : [{questionairSchema}]
-})
+const Responses = mongoose.model('QuestionnaireResponse', QuestionnaireResponseSchema)
+
+module.exports = Responses
