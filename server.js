@@ -1,29 +1,20 @@
-
-const express = require("express");
-const mongoose = require("mongoose");
+require("dotenv").config()
+const responseRoute = require('./routes/responseController')
+const express = require("express")
 const app = express()
+const cors = require("cors")
+const port = 3000
+const { mongoose, db } = require("./database")
 
-require('dotenv').config()
+// Middleware
+app.use(cors())
 app.use(express.json())
 
+// Routes
+app.use("/", responseRoute)
 
-mongoose.set('strictQuery', false);
-mongoose.connect(process.env.MONGODB_URI,
-{
-    useNewUrlParser:true,
-    useUnifiedTopology:true
 
-},(err)=>{
-    if(err){
-        console.log(err)
-    }
-    else{
-        console.log("Sucess!!!!")
-    }
+// start the Express server
+app.listen(port, () => {
+    console.log(`Server started on port http://localhost:${port}`)
 })
-
-const responseRoute = require ('./routes/responsesController')
-app.use('/responses', responseRoute)
-
-app.listen(3000,()=> {console.log("Listening on port 3000")})
-
