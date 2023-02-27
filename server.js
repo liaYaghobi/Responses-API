@@ -1,5 +1,6 @@
 require("dotenv").config()
 const responseRoute = require('./routes/responseController')
+const questionnaireRoute = require('./routes/questionnaireController')
 const express = require("express")
 const app = express()
 const cors = require("cors")
@@ -12,6 +13,7 @@ app.use(express.json())
 
 // Routes
 app.use("/", responseRoute)
+app.use("/submit", questionnaireRoute)
 
 
 // start the Express server

@@ -1,21 +1,18 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const router = express.Router()
-const Response = require("../model/responseModel.js")
+const Questionnaire = require("../model/questionnaireModel.js")
 
 
 router.post('/', async(req,res)=>{
-    const { id, questionnaireID, userID, responses } = req.body
+    const { id, responses } = req.body
 
-    const response = new Response({
+    const questionnaire = new Questionnaire({
         id,
-        questionnaireID,
-        userID,
         responses
     })
     try{
-        const newcompletedQuestionnaire = await response.save()
-        console.log(db.responses.find({"id":"2"}))
+        const newcompletedQuestionnaire = await questionnaire.save()
         res.status(201).json(newcompletedQuestionnaire)
     }catch(err){
         res.status(400).json({message: err.message})
